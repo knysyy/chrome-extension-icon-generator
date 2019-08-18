@@ -7,7 +7,8 @@
     "chexicon": "./dist/index.js"
   },
   "scripts": {
-    "dev": "webpack --mode development",
+    "dev": "webpack",
+    "watch": "webpack --watch",
     "build": "webpack --mode production"
   },
   "keywords": [],
