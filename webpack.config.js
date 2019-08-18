@@ -2,6 +2,7 @@ var webpack = require('webpack')
 
 module.exports = {
     mode: 'development',
+    target: 'node',
     entry: './src/index.js',
     output: {
         path: `${__dirname}/dist`,
@@ -12,9 +13,11 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                },
+                use: [
+                    {
+                        loader: 'babel-loader',
+                    }
+                ],
             },
         ],
     },
@@ -23,5 +26,5 @@ module.exports = {
             banner: '#!/usr/bin/env node',
             raw: true,
         }),
-    ],
+    ]
 }
