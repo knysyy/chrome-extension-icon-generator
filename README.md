@@ -1,0 +1,2 @@
+# Chrome Extension Icon Generator
+Webpackの勉強も兼ねてChrome Extension用のIconを生成するCLIの作成
