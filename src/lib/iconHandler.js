@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import jimp from 'jimp'
 import fileType from 'file-type'
+import { logger } from './utils'
 
 const FILE_TYPE = ['png', 'jpeg', 'tiff', 'gif', 'bmp']
 const ICON16 = [16, 16]
@@ -9,19 +10,19 @@ const ICON48 = [48, 48]
 const ICON128 = [128, 128]
 
 export default async cmdObj => {
+    logger.info(
+        `iconPath: ${cmdObj.iconPath}, outputPath: ${cmdObj.outputPath}`
+    )
     const iconPath = path.resolve(cmdObj.iconPath)
     const outputPath = path.resolve(cmdObj.outputPath || './')
-    console.log(`iconPath: ${iconPath} outputPath: ${outputPath}`)
 
     if (!iconPath || !checkFileExist(iconPath)) {
-        console.log('iconPathが不正です.')
-        process.exit(1)
+        throw new Error('pathが不正です')
     }
     const buf = fs.readFileSync(iconPath)
-    const type = fileType(buf).ext
-    if (FILE_TYPE.indexOf(type) < 0) {
-        console.log('ファイルタイプが不正です')
-        process.exit(1)
+    const type = fileType(buf)
+    if (!type || FILE_TYPE.indexOf(type.ext) < 0) {
+        throw new Error('ファイルタイプが不正です')
     }
 
     try {
@@ -30,15 +31,17 @@ export default async cmdObj => {
         image.resize(...ICON48).write(path.resolve(outputPath, 'icon48.png'))
         image.resize(...ICON16).write(path.resolve(outputPath, 'icon16.png'))
     } catch (err) {
-        console.log('iconの作成に失敗しました')
-        process.exit(1)
+        throw new Error('iconの作成に失敗しました')
     }
 }
 
 const checkFileExist = filePath => {
     try {
-        fs.statSync(filePath)
-        return true
+        if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+            return true
+        }
+
+        return false
     } catch (err) {
         return false
     }

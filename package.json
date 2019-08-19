@@ -9,9 +9,10 @@
   "scripts": {
     "dev": "webpack",
     "watch": "webpack --watch",
-    "build": "webpack --mode production",
+    "build": "rm -rf dist && webpack --mode production",
     "fmt": "prettier --write ./src/**/*.js",
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "keywords": [],
   "author": "",
@@ -19,12 +20,16 @@
   "dependencies": {
     "commander": "^3.0.0",
     "file-type": "^12.2.0",
-    "jimp": "^0.6.4"
+    "jimp": "^0.6.4",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.5.5",
+    "@babel/runtime": "^7.5.5",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
     "jest": "^24.9.0",

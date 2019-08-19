@@ -3,7 +3,7 @@ var webpack = require('webpack')
 module.exports = {
     mode: 'development',
     target: 'node',
-    entry: './src/index.js',
+    entry: ['@babel/polyfill', './src/index.js'],
     output: {
         path: `${__dirname}/dist`,
         filename: 'index.js',
@@ -16,7 +16,7 @@ module.exports = {
                 use: [
                     {
                         loader: 'babel-loader',
-                    }
+                    },
                 ],
             },
         ],
@@ -26,5 +26,5 @@ module.exports = {
             banner: '#!/usr/bin/env node',
             raw: true,
         }),
-    ]
+    ],
 }
