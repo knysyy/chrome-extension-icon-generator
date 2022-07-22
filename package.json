@@ -19,7 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "commander": "^3.0.0",
-    "file-type": "^12.2.0",
+    "file-type": "^16.5.4",
     "jimp": "^0.6.4",
     "winston": "^3.2.1"
   },
